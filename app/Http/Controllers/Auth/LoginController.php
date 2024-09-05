@@ -22,6 +22,7 @@ class LoginController extends Controller
             return response()->json([
                 'token' => $token,
                 'role' => $user->role,
+                'user' => $user,
                 'message' => 'Login successful!'
             ], 200);
         }
@@ -29,5 +30,13 @@ class LoginController extends Controller
         return response()->json([
             'message' => 'Invalid credentials',
         ], 401);
+    }
+
+    public function logout(Request $request)
+    {
+        $user = $request->user();
+        $user->tokens()->delete();
+    
+        return response()->json(['message' => 'Successfully logged out']);
     }
 }

@@ -42,8 +42,9 @@ export default {
         const response = await axios.post('/api/login', form.value);
         localStorage.setItem('authToken', response.data.token);
         localStorage.setItem('userRole', response.data.role);
-        
-        router.push('/dashboard');
+        localStorage.setItem('user', JSON.stringify(response.data.user))
+
+        router.push('/dashboard');        
       } catch (error) {
         if (error.response && error.response.data) {
           errorMessage.value = error.response.data.message;

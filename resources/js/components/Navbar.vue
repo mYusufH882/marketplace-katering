@@ -5,7 +5,7 @@
       <!-- Profile Dropdown -->
       <div class="relative">
         <button @click="toggleDropdown" class="flex items-center text-white focus:outline-none">
-          <span class="mr-2">John Doe</span>
+          <span class="mr-2">{{ user.name }}</span>
           <img class="h-8 w-8 rounded-full" src="https://via.placeholder.com/150" alt="Profile">
         </button>
 
@@ -32,6 +32,7 @@ export default {
   setup() {
     const dropdownOpen = ref(false);
     const router = useRouter();
+    const user = ref(null)
 
     const toggleDropdown = () => {
       dropdownOpen.value = !dropdownOpen.value;
@@ -52,7 +53,13 @@ export default {
       router.push('/profile/edit');
     };
 
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      user.value = JSON.parse(userData);
+    }
+
     return {
+      user,
       dropdownOpen,
       toggleDropdown,
       logout,

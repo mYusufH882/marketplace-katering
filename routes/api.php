@@ -24,25 +24,27 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/register', [RegisterController::class, 'register']);
 
-Route::middleware(['auth:sanctum', 'role:merchant'])->group(function() {
-    Route::get('/user', [UserController::class, 'getUser']);
+Route::middleware(['auth:sanctum'])->group(function() {
+    Route::middleware(['role:merchant'])->group(function() {
+        Route::get('/user', [UserController::class, 'getUser']);
+    
+        Route::group(['prefix' => 'menus'], function() {
+            Route::get('/', [MenuController::class, 'index']);
+            Route::post('/', [MenuController::class, 'store']);
+            Route::delete('/{id}', [MenuController::class, 'delete']);
+            Route::put('/{id}', [MenuController::class, 'edit']);
+        });
 
-    Route::group(['prefix' => 'menus'], function() {
-        Route::get('/', [MenuController::class, 'index']);
-        Route::post('/', [MenuController::class, 'store']);
-        Route::delete('/{id}', [MenuController::class, 'delete']);
-        Route::put('/{id}', [MenuController::class, 'edit']);
+        Route::get('/orders', [OrderController::class, 'index']);
+        Route::get('/locations', [LocationsController::class, 'index']);
+        Route::get('/categories', [CategoriesController::class, 'index']);
     });
 
-    Route::get('/orders', [OrderController::class, 'index']);
-    Route::get('/locations', [LocationsController::class, 'index']);
-    Route::get('/categories', [CategoriesController::class, 'index']);
-    
-    Route::post('/logout', function (Request $request) {
-        $user = $request->user();
-        $user->tokens()->delete();
-    
-        return response()->json(['message' => 'Successfully logged out']);
+    Route::middleware(['role:customer'])->group(function () {
+        // Route::get('/dashboard-customer', []);
     });
+
+    Route::post('/logout', [LoginController::class, 'logout']);
 });
+
 

@@ -32,7 +32,7 @@ class RegisterController extends Controller
 
         return response()->json([
             'message' => 'Registration successful!',
-            'data' => $user
+            'data' => $user,
         ], 201);
     }
 }

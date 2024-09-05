@@ -66,7 +66,7 @@ export default {
       try {
         const response = await axios.post('/api/register', form.value);
         alert(response.data.message);
-        router.push('/dashboard');
+        router.push('/login');
       } catch (error) {
         if (error.response && error.response.data) {
           errorMessage.value = Object.values(error.response.data).join(', ');

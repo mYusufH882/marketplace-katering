@@ -6,13 +6,13 @@
       <nav class="mt-6">
         <ul>
           <li>
-            <a href="#" class="block px-6 py-2 text-white hover:bg-red-600x">Menu 1</a>
+            <a href="/dashboard" class="block px-6 py-2 text-white hover:bg-red-600x">Dashboard</a>
           </li>
           <li>
-            <a href="#" class="block px-6 py-2 text-white hover:bg-red-600x">Menu 2</a>
+            <a href="/menu" class="block px-6 py-2 text-white hover:bg-red-600x">Product Menu</a>
           </li>
           <li>
-            <a href="#" class="block px-6 py-2 text-white hover:bg-red-600x">Menu 3</a>
+            <a href="/order" class="block px-6 py-2 text-white hover:bg-red-600x">Order</a>
           </li>
         </ul>
       </nav>
@@ -26,13 +26,7 @@ export default {
 </script>
 
 <style scoped>
-/* Warna sidebar yang profesional untuk restoran */
 aside {
-  background-color: #c0392b; /* Warna merah khas restoran */
-}
-
-/* Perbaiki efek hover agar lebih halus */
-a {
-  transition: background-color 0.3s ease, color 0.3s ease;
+  background-color: #c0392b;
 }
 </style>

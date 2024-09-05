@@ -10,14 +10,14 @@
 
       <!-- Content -->
       <main class="p-6 flex-1">
-        <h2 class="text-2xl font-bold">Welcome to the Dashboard</h2>
-        <p class="mt-4">This is your main content area.</p>
+        <RouterView />
       </main>
     </div>
   </div>
 </template>
 
 <script>
+import { RouterView } from 'vue-router';
 import Navbar from './components/Navbar.vue';
 import Sidebar from './components/Sidebar.vue';
 

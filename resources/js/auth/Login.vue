@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen flex justify-center items-center bg-gray-100">
     <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
-      <h2 class="text-2xl font-bold mb-6">Login</h2>
+      <h2 class="text-2xl mb-6 text-center">Login Marketplace Katering</h2>
       <form @submit.prevent="login">
         <div class="mb-4">
           <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email</label>
@@ -15,6 +15,9 @@
         <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
           Login
         </button>
+        <p class="text-center mt-4">
+          Doesn't have an account? <router-link to="/register" class="text-blue-500">Register</router-link>
+        </p>
       </form>
     </div>
   </div>

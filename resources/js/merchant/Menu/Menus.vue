@@ -73,7 +73,7 @@ import router from '../../router';
       };
   
       const editMenu = (id) => {
-        alert('Edit menu with ID ' + id);
+        router.push({ name: 'EditMenu', params: { id } });
       };
   
       const deleteMenu = async (id) => {

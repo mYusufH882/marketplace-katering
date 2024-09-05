@@ -8,6 +8,11 @@
           <thead>
             <tr class="bg-gray-200">
               <th class="py-2 px-4 border-b">#</th>
+              <th class="py-2 px-4 border-b">User</th>
+              <th class="py-2 px-4 border-b">Invoice</th>
+              <th class="py-2 px-4 border-b">Order Date</th>
+              <th class="py-2 px-4 border-b">Delivery Date</th>
+              <th class="py-2 px-4 border-b">Status</th>
             </tr>
           </thead>
           <tbody>

@@ -5,7 +5,7 @@
         <input 
           v-model="searchQuery" 
           type="text" 
-          placeholder="Search menu name or description..." 
+          placeholder="Search menu name or categories or locations..." 
           class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
       </div>
@@ -60,7 +60,8 @@ import router from '../../router';
         }
         return menus.value.filter(menu =>
           menu.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-          menu.category.category_name.toLowerCase().includes(searchQuery.value.toLowerCase())
+          menu.category.category_name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
+          menu.location.location_name.toLowerCase().includes(searchQuery.value.toLowerCase())
         );
       });
 

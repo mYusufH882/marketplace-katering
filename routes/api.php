@@ -7,7 +7,6 @@ use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +27,7 @@ Route::middleware(['auth:sanctum'])->group(function() {
     Route::get('/user', [UserController::class, 'getUser']);
     Route::get('menus/', [MenuController::class, 'index']);
     Route::get('menus/{id}', [MenuController::class, 'detail']);
+    Route::get('/orders', [OrderController::class, 'index']);
 
     Route::middleware(['role:merchant'])->group(function() {
         Route::group(['prefix' => 'menus'], function() {
@@ -36,9 +36,12 @@ Route::middleware(['auth:sanctum'])->group(function() {
             Route::put('/{id}', [MenuController::class, 'edit']);
         });
 
-        Route::get('/orders', [OrderController::class, 'index']);
         Route::get('/locations', [LocationsController::class, 'index']);
         Route::get('/categories', [CategoriesController::class, 'index']);
+    });
+
+    Route::middleware(['role:customer'])->group(function() {
+        Route::post('/orders', [OrderController::class, 'orderMenu']);
     });
 
     Route::post('/logout', [LoginController::class, 'logout']);

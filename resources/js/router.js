@@ -4,7 +4,6 @@ import HomeCust from './customer/HomeCust.vue';
 import Menus from './merchant/Menu/Menus.vue';
 import FormMenu from './merchant/Menu/FormMenu.vue';
 import EditMenu from './merchant/Menu/EditMenu.vue';
-import Order from './merchant/Order.vue';
 import InvoiceList from './customer/InvoiceList.vue';
 import Katalog from './customer/katalogs/Katalog.vue';
 import KatalogDetail from './customer/katalogs/KatalogDetail.vue';
@@ -49,11 +48,6 @@ const routes = [
               props: route => ({ id: Number(route.params.id) }),
           },
           {
-              path: '/order',
-              component: Order,
-              meta: { requiresAuth: true, role: 'merchant' },
-          },
-          {
             path: '/cust-dashboard',
             name: 'CustomerDashboard',
             component: HomeCust,
@@ -75,7 +69,7 @@ const routes = [
             path: '/invoice-list',
             name: 'InvoiceList',
             component: InvoiceList,
-            meta: { requiresAuth: true, role: 'customer' }
+            meta: { requiresAuth: true }
           },
       ]
     },

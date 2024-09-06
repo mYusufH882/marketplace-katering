@@ -25,11 +25,12 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::post('/register', [RegisterController::class, 'register']);
 
 Route::middleware(['auth:sanctum'])->group(function() {
+    Route::get('/user', [UserController::class, 'getUser']);
+    Route::get('menus/', [MenuController::class, 'index']);
+    Route::get('menus/{id}', [MenuController::class, 'detail']);
+
     Route::middleware(['role:merchant'])->group(function() {
-        Route::get('/user', [UserController::class, 'getUser']);
-    
         Route::group(['prefix' => 'menus'], function() {
-            Route::get('/', [MenuController::class, 'index']);
             Route::post('/', [MenuController::class, 'store']);
             Route::delete('/{id}', [MenuController::class, 'delete']);
             Route::put('/{id}', [MenuController::class, 'edit']);
@@ -38,14 +39,6 @@ Route::middleware(['auth:sanctum'])->group(function() {
         Route::get('/orders', [OrderController::class, 'index']);
         Route::get('/locations', [LocationsController::class, 'index']);
         Route::get('/categories', [CategoriesController::class, 'index']);
-    });
-
-    Route::middleware(['role:customer'])->group(function () {
-        // Route::get('/dashboard-customer', []);
-        Route::group(['prefix' => 'menus'], function() {
-            Route::get('/', [MenuController::class, 'index']);
-            Route::get('/{id}', [MenuController::class, 'detail']);
-        });
     });
 
     Route::post('/logout', [LoginController::class, 'logout']);

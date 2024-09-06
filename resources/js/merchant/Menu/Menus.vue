@@ -50,22 +50,27 @@
   <script>
   import { ref, onMounted } from 'vue';
   import axios from 'axios';
-import router from '../../router';
+  import router from '../../router';
   
   export default {
     name: 'Menus',
     setup() {
       const menus = ref([]);
   
-      const fetchMenus = () => {
-        axios
-          .get('/api/menus')
-          .then((response) => {
-            menus.value = response.data.data;
-          })
-          .catch((error) => {
-            console.error('Error fetching menus:', error);
-          });
+      const fetchMenus = async() => {
+        const token = localStorage.getItem('authToken')
+        try {
+          const response = await axios
+            .get('/api/menus', {
+              headers: {
+                Authorization: `Bearer ${token}`
+              }
+            });
+
+            menus.value = response.data.data
+        } catch(error) {
+          console.error(error);
+        }
       };
   
       const addMenu = () => {
@@ -80,7 +85,12 @@ import router from '../../router';
         const isConfirmed = window.confirm('Are you sure you want to delete this menu?');
         if (isConfirmed) {
           try {
-            await axios.delete(`/api/menus/${id}`); 
+            const token = localStorage.getItem('authToken');
+            await axios.delete(`/api/menus/${id}`, {
+              headers: {
+                Authorization: `Bearer ${token}`
+              }
+            }); 
   
             fetchMenus();
             alert('Menu deleted successfully');

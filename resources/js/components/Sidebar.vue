@@ -18,7 +18,7 @@
           </div>
           <div v-else>
             <li>
-              <a href="#" class="block px-6 py-2 text-white hover:bg-red-600x">Katalog Katering</a>
+              <a href="/katalog-list" class="block px-6 py-2 text-white hover:bg-red-600x">Katalog Katering</a>
             </li>
             <li>
               <a href="/invoice-list" class="block px-6 py-2 text-white hover:bg-red-600x">Daftar Invoice</a>

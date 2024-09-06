@@ -11,11 +11,21 @@ class MenuController extends Controller
 {
     public function index() 
     {
-        $menus = Menu::get();
+        $menus = Menu::with(['category', 'location'])->get();
 
         return response()->json([
             'message' => 'List Data Product Menu',
             'data' => $menus
+        ], 200);
+    }
+
+    public function detail($id)
+    {
+        $menuId = Menu::with(['category', 'location'])->where('id', $id)->first();
+
+        return response()->json([
+            'message' => 'Detail Data Product Menu',
+            'data' => $menuId
         ], 200);
     }
 

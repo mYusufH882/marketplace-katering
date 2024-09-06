@@ -6,6 +6,8 @@ import FormMenu from './merchant/Menu/FormMenu.vue';
 import EditMenu from './merchant/Menu/EditMenu.vue';
 import Order from './merchant/Order.vue';
 import InvoiceList from './customer/InvoiceList.vue';
+import Katalog from './customer/katalogs/Katalog.vue';
+import KatalogDetail from './customer/katalogs/KatalogDetail.vue';
 
 const routes = [
     { 
@@ -55,6 +57,18 @@ const routes = [
             path: '/cust-dashboard',
             name: 'CustomerDashboard',
             component: HomeCust,
+            meta: { requiresAuth: true, role: 'customer' }
+          },
+          {
+            path: '/katalog-list',
+            name: 'KatalogList',
+            component: Katalog,
+            meta: { requiresAuth: true, role: 'customer' }
+          },
+          {
+            path: '/katalog/:id',
+            name: 'KatalogDetail',
+            component: KatalogDetail,
             meta: { requiresAuth: true, role: 'customer' }
           },
           {

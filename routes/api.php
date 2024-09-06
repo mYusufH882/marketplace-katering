@@ -42,6 +42,10 @@ Route::middleware(['auth:sanctum'])->group(function() {
 
     Route::middleware(['role:customer'])->group(function () {
         // Route::get('/dashboard-customer', []);
+        Route::group(['prefix' => 'menus'], function() {
+            Route::get('/', [MenuController::class, 'index']);
+            Route::get('/{id}', [MenuController::class, 'detail']);
+        });
     });
 
     Route::post('/logout', [LoginController::class, 'logout']);

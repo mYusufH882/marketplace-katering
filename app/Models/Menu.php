@@ -18,4 +18,14 @@ class Menu extends Model
         'image',
         'price',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Categories::class);
+    }
+
+    public function location()
+    {
+        return $this->belongsTo(Locations::class);
+    }
 }

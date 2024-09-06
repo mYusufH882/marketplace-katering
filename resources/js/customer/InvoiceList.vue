@@ -16,14 +16,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="hover:bg-gray-100">
-                        <td class="py-2 px-4 border-b"></td>
-                        <td class="py-2 px-4 border-b"></td>
-                        <td class="py-2 px-4 border-b"></td>
-                        <td class="py-2 px-4 border-b"></td>
-                        <td class="py-2 px-4 border-b"></td>
-                        <td class="py-2 px-4 border-b"></td>
-                        <td class="py-2 px-4 border-b"></td>
+                    <tr v-for="(item, index) in invoices" :key="item.id" class="hover:bg-gray-100">
+                        <td class="py-2 px-4 border-b">{{ index + 1 }}</td>
+                        <td class="py-2 px-4 border-b">{{ item.invoice_code }}</td>
+                        <td class="py-2 px-4 border-b">{{ item.orders[index].items[index].menu.name }}</td>
+                        <td class="py-2 px-4 border-b">{{ formatDate(item.orders[index].order_date) }}</td>
+                        <td class="py-2 px-4 border-b">{{ formatDate(item.orders[index].delivery_date) }}</td>
+                        <td class="py-2 px-4 border-b">{{ item.status }}</td>
+                        <td class="py-2 px-4 border-b">{{ formatCurrency(item.total_amount) }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -32,7 +32,49 @@
 </template>
 
 <script>
+import axios from 'axios';
+import { onMounted, ref } from 'vue';
+
 export default {
-    name: 'InvoiceList'
+    name: 'InvoiceList',
+    setup() {
+        const invoices = ref([])
+
+        const fetchInvoices = async () => {
+            try {
+                const token = localStorage.getItem('authToken')
+    
+                const response = await axios.get('/api/orders', {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+
+                invoices.value = response.data.data
+                console.log(response.data.data);
+            } catch(error) {
+                console.error(error);
+            }
+        }
+
+        const formatDate = (dateString) => {
+            if (!dateString) return 'N/A';
+            const date = new Date(dateString);
+            return date.toLocaleDateString(); 
+        }
+
+        const formatCurrency = (amount) => {
+            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(amount);
+        }
+
+        onMounted(fetchInvoices)
+
+        return {
+            invoices,
+            fetchInvoices,
+            formatDate,
+            formatCurrency,
+        };
+    }
 }
 </script>

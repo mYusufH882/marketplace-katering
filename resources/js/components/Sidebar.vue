@@ -12,18 +12,15 @@
             <li>
               <a href="/menu" class="block px-6 py-2 text-white hover:bg-red-600x">Product Menu</a>
             </li>
-            <li>
-              <a href="/order" class="block px-6 py-2 text-white hover:bg-red-600x">Order</a>
-            </li>
           </div>
           <div v-else>
             <li>
               <a href="/katalog-list" class="block px-6 py-2 text-white hover:bg-red-600x">Katalog Katering</a>
             </li>
-            <li>
-              <a href="/invoice-list" class="block px-6 py-2 text-white hover:bg-red-600x">Daftar Invoice</a>
-            </li>
           </div>
+          <li>
+            <a href="/invoice-list" class="block px-6 py-2 text-white hover:bg-red-600x">Daftar Invoice</a>
+          </li>
         </ul>
       </nav>
     </aside>
@@ -56,10 +53,6 @@ aside {
 
 ul li {
   border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Garis pemisah */
-}
-
-ul li:last-child {
-  border-bottom: none; /* Hilangkan garis pada elemen terakhir */
 }
 
 a {

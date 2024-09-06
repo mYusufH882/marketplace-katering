@@ -8,7 +8,7 @@
             
             <!-- Card Body -->
             <div class="p-6">
-                <img v-if="menu.image" :src="`/storage/${menu.image}`" alt="Menu Image" class="w-32 h-32 object-cover"/>
+                <img v-if="menu.image" :src="`/storage/${menu.image}`" alt="Menu Image" class="w-full h-64 object-center"/>
                 <span v-else>No Image</span>
 
                 <span class="text-sm text-gray-500">Description :</span>
@@ -28,11 +28,16 @@
                     <span class="text-sm text-gray-500">Price:</span>
                     <span class="font-medium text-green-600">{{ menu.price }}</span>
                 </div>
+
+                <div class="mt-4">
+                    <label for="quantity" class="block text-sm text-gray-500">Quantity:</label>
+                    <input type="number" v-model="quantity" id="quantity" min="1" class="w-full mt-1 p-2 border rounded-md">
+                </div>
             </div>
 
             <!-- Card Footer -->
             <div class="bg-gray-100 p-4">
-                <button @click="goBack" class="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-500 mb-2">
+                <button @click="orderMenu" class="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-500 mb-2">
                     Order
                 </button>
 
@@ -53,7 +58,8 @@ import router from '../../router';
 export default {
     name: 'KatalogDetail',
     setup() {
-        const menu = ref({})
+        const menu = ref({});
+        const quantity = ref(1);
         const route = useRoute();
 
         const fetchDetailMenu = async () => {
@@ -70,6 +76,34 @@ export default {
             }
         }
 
+        const orderMenu = async () => {
+            try {
+                const token = localStorage.getItem('authToken')
+                const orderData = {
+                    items: [
+                        {
+                            menu_id: menu.value.id,
+                            quantity: quantity.value
+                        }
+                    ],
+                    delivery_date: new Date().toISOString().slice(0, 10)
+                };
+
+                const response = await axios.post(`/api/orders`, orderData, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    } 
+                });
+
+                menu.value = response.data.data;
+                console.log(menu);
+
+                router.push('/katalog-list');
+            } catch(error) {
+                console.error(error);
+            }
+        }
+
         const goBack = () => {
             router.push('/katalog-list')
         }
@@ -78,6 +112,8 @@ export default {
 
         return {
             menu,
+            quantity,
+            orderMenu,
             goBack,
         };
     }

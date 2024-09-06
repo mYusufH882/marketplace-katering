@@ -101,6 +101,7 @@ import router from '../../router';
       },
     },
     setup(props) {
+      
       const form = ref({
         user_id: '',
         category_id: '',
@@ -161,10 +162,9 @@ import router from '../../router';
           });
 
           const menuData = response.data.data;
-          const user = JSON.parse(localStorage.getItem('user'));
-
+          
           form.value = {
-            user_id: user.id,
+            user_id: menuData.user_id,
             category_id: menuData.category_id,
             location_id: menuData.location_id,
             name: menuData.name,
@@ -184,27 +184,22 @@ import router from '../../router';
       const submitForm = async() => {
         try {
           const token = localStorage.getItem('authToken')
-          const formData = new FormData();
           const user = JSON.parse(localStorage.getItem('user'));
 
-          if (!user || !user.id) {
-            throw new Error('User is not logged in or user_id is missing.');
-          }
+          form.value.user_id = user.id;
 
-          formData.append('user_id', user.id);
-          formData.append('category_id', form.value.category_id);
-          formData.append('location_id', form.value.location_id);
-          formData.append('name', form.value.name);
-          formData.append('description', form.value.description);
-          if (form.value.image) {
-            formData.append('image', form.value.image);
-          }
-          formData.append('price', form.value.price);
-
-          await axios.put(`/api/menus/${props.id}`, formData, {
+          await axios.put(`/api/menus/${props.id}`, {
+            user_id: form.value.user_id,
+            category_id: form.value.category_id,
+            location_id: form.value.location_id,
+            name: form.value.name,
+            description: form.value.description,
+            price: form.value.price,
+            image: form.value.image,
+          }, {
             headers: {
-              Authorization: `Bearer ${token}`
-            }
+              Authorization: `Bearer ${token}`,
+            },
           });
 
           router.push('/menu');

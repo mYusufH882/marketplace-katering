@@ -14,6 +14,7 @@
           <thead>
             <tr class="bg-gray-200">
               <th class="py-2 px-4 border-b">#</th>
+              <th class="py-2 px-4 border-b">Image</th>
               <th class="py-2 px-4 border-b">Menu Name</th>
               <th class="py-2 px-4 border-b">Description</th>
               <th class="py-2 px-4 border-b">Price</th>
@@ -23,6 +24,10 @@
           <tbody>
             <tr v-for="(menu, index) in menus" :key="menu.id" class="hover:bg-gray-100">
                 <td class="py-2 px-4 border-b">{{ index + 1 }}</td>
+                <td class="py-2 px-4 border-b">
+                  <img v-if="menu.image" :src="`/storage/${menu.image}`" alt="Menu Image" class="w-32 h-32 object-cover"/>
+                  <span v-else>No Image</span>
+                </td>
                 <td class="py-2 px-4 border-b">{{ menu.name }}</td>
                 <td class="py-2 px-4 border-b">{{ menu.description }}</td>
                 <td class="py-2 px-4 border-b">{{ menu.price }}</td>

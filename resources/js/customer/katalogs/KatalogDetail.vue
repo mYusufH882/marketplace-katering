@@ -8,6 +8,9 @@
             
             <!-- Card Body -->
             <div class="p-6">
+                <img v-if="menu.image" :src="`/storage/${menu.image}`" alt="Menu Image" class="w-32 h-32 object-cover"/>
+                <span v-else>No Image</span>
+
                 <span class="text-sm text-gray-500">Description :</span>
                 <p class="text-dark-700 mb-4">{{ menu.description }}</p>
 

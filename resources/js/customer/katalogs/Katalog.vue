@@ -17,6 +17,8 @@
           :key="index" 
           class="bg-white rounded-lg shadow-md p-4"
         >
+          <img v-if="item.image" :src="`/storage/${item.image}`" alt="Menu Image" class="w-full h-64 object-cover"/>
+          <span v-else>No Image</span>
           <h3 class="text-lg font-semibold mb-2">{{ item.name }}</h3>
           <small class="text-gray-600">{{ item.category.category_name }}</small>
           <br/><small class="text-dark-200">{{ item.location.location_name }}</small>
@@ -58,7 +60,7 @@ import router from '../../router';
         }
         return menus.value.filter(menu =>
           menu.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-          menu.description.toLowerCase().includes(searchQuery.value.toLowerCase())
+          menu.category.category_name.toLowerCase().includes(searchQuery.value.toLowerCase())
         );
       });
 
